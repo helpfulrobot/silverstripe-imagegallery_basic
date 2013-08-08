@@ -49,7 +49,7 @@ class ImageGalleryPage extends Page {
 		}
 		if($ImageGalleryEntries = DataObject::get("ImageGalleryEntry", "ParentID = ".$this->ID)){
 			foreach($ImageGalleryEntries as $ImageGalleryEntry) {
-				if($image = DataObject::get_one("Image", "File.ID = ".$ImageGalleryEntry->ImageID." AND File.Title <> '".$ImageGalleryEntry->Title."'")) {
+				if($image = DataObject::get_one("Image", "File.ID = ".$ImageGalleryEntry->ImageID." AND File.Title <> '".Conterver::raw2sql($ImageGalleryEntry->Title)."'")) {
 					$image->Title = $image->Name = $ImageGalleryEntry->Title;
 					$image->write();
 				}
